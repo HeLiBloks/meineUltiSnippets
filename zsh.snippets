@@ -1,0 +1,53 @@
+# modeline & info {{{ #
+# vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker lazyredraw spell:
+# }}} modeline & info #
+
+snippet alias "CreateAlias" b
+alias ${1:alias}="${2:command}"
+$0
+endsnippet
+
+# sed {{{ #
+
+snippet "sed 'd//'" "Delete string" b
+sed -r 'd/${1:[0-9]}/' $0
+endsnippet
+
+snippet "sed 's///g'" "Replace w. String" b
+sed -r 's/${1:[0-9a-zA-Z]}/${2:(\1)}/g' $0
+endsnippet
+
+# }}} sed #
+
+snippet uniq "compare fields"
+uniq ${1:--count} ${2:--uniq} $0
+endsnippet
+
+snippet comm "compare 2 sorted files" b
+comm ${1:-1 suppress column lines uniq to file 1} $0
+endsnippet
+
+snippet join "join file1 & 2 on column 1"
+join ${1:./} ${2:./} $0
+endsnippet
+
+snippet sort "sort -n numeric -d dict -m month -r reverse"
+sort ${1:-n} $0
+endsnippet
+
+snippet awk "/pattern/ action"
+awk -F"${1:delimiter}" '/${2:^[A-Za-z0-9]}/ {print  ${3:\$0}}' ./$0
+endsnippet
+
+snippet cut "cut -c1-3 char -d delimiter -f field"
+cut -d'${1:	}' -f$0
+endsnippet
+
+snippet column "-s delim -o outputsep -t format as table"
+column -t -s${1:	} -o${2:	}
+endsnippet
+
+snippet wc "-w wordCount -l lines -m chars -c bytes" b
+wc -w$0
+endsnippet
+

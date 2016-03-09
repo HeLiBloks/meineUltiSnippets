@@ -1,0 +1,10 @@
+snippet [share "samba share" b!
+[${1:Name shown in smb}]
+	path = ${2:/mountPoint/$1}
+	browsable = ${3:yes}
+	guest ok = ${4:yes}
+	create mask = 0755
+endsnippet
+
+
+

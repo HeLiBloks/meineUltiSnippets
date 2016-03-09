@@ -1,0 +1,100 @@
+# vim:set ft=snippets foldmarker=snippet,endsnippet foldenable foldmethod=marker :
+priority -51
+
+extends sh
+
+snippet for "for item in ((ls))" b
+	for i in $( ${1:ls} ); do
+	echo item: $i
+	done
+	$0
+endsnippet
+
+snippet ifRegex "if regex" b
+	if [[ ${1:$string} =~ ${2:[a-zA-Z0-9]+} ]]; then
+		${3:echo "match in string"}
+	else
+		#regex not matched
+		${4:echo "no match in string"}
+	fi
+	$0
+endsnippet
+
+snippet whileCount "while count" b
+count=0
+while [ $i -le ${1:10} ]; do
+	${echo $i}
+	((i+=1))
+done
+$0
+endsnippet
+
+snippet cat "cat > heredocument << EOF" !b
+cat > ./${1:document} << EOF
+${2:[catThisIntoFile]}
+EOF
+$0
+endsnippet
+
+# pythonInterpolatedArray snippet
+global !p
+def complete(t, opts):
+	if t:
+		opts = [ m[len(t):] for m in opts if m.startswith(t)]
+	if len(opts)==1:
+		return opts[0]
+	return "("+'|'.join(opts)+ ')'
+endglobal
+
+snippet st "Status" b
+status
+$0
+#status $1`!p snip.rv=complete(t[1], ['new','incomplete','invalid'])`
+endsnippet
+# endsnippet
+
+snippet ifBrackets "if expressionList" b
+if ${1:[doing]} do;
+
+done
+$0
+endsnippet
+
+snippet if[-f] "-f file -d dir" b
+if [ ${1:! -f\-d} ]; then
+${2:mkdir }
+fi
+$0
+endsnippet
+
+snippet rename "rename files" b
+rename ${1:-e} ${2:'y}/${3:[A-Z]}/${4:[a-z]}/' ${5:*.*}
+$0
+endsnippet
+
+snippet "find exec" "find and exec command on files" b
+find . -maxdepth 0 -empty -exec echo {} is empty. \;
+endsnippet
+
+   # [ -a FILE ]
+   # [ -b FILE ]
+   # [ -c FILE ]
+   # [ -d FILE ]
+   # [ -e FILE ]
+   # [ -f FILE ]
+   # [ -g FILE ]
+   # [ -h FILE ]
+   # [ -k FILE ]
+   # [ -p FILE ]
+   # [ -r FILE ]
+   # [ -s FILE ]
+   # [ -t FD ]  
+   # [ -u FILE ]
+   # [ -w FILE ]
+   # [ -x FILE ]
+   # [ -O FILE ]
+   # [ -G FILE ]
+   # [ -L FILE ]
+   # [ -N FILE ]
+   # [ -S FILE ]
+   # [ -D DIR  ]
