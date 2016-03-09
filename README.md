@@ -1,3 +1,3 @@
 # My collection of snippets
 
-Feel free to let them improve your workflow.
+Feel free in letting them improve/disrupt your workflow.
