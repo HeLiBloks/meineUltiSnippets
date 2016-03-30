@@ -4,20 +4,20 @@ priority -51
 extends sh
 
 snippet for "for item in ((ls))" b
-	for i in $( ${1:ls} ); do
-	echo item: $i
-	done
+for i in $( ${1:ls} ); do
+	echo "item: $i"
+done
 	$0
 endsnippet
 
 snippet ifRegex "if regex" b
-	if [[ ${1:$string} =~ ${2:[a-zA-Z0-9]+} ]]; then
+if [[ ${1:$string} =~ ${2:[a-zA-Z0-9]+} ]]; then
 		${3:echo "match in string"}
 	else
 		#regex not matched
 		${4:echo "no match in string"}
-	fi
-	$0
+fi
+$0
 endsnippet
 
 snippet whileCount "while count" b
@@ -72,29 +72,60 @@ rename ${1:-e} ${2:'y}/${3:[A-Z]}/${4:[a-z]}/' ${5:*.*}
 $0
 endsnippet
 
+snippet column "-tx table -s delim" b
+column -tx -s'${1:delim}'$0
+endsnippet
+
+snippet cut "cut -f field -d delim" b
+cut ${1:-f1,2} ${2:-d,}$0
+endsnippet
+
 snippet "find exec" "find and exec command on files" b
 find . -maxdepth 0 -empty -exec echo {} is empty. \;
 endsnippet
 
-   # [ -a FILE ]
-   # [ -b FILE ]
-   # [ -c FILE ]
-   # [ -d FILE ]
-   # [ -e FILE ]
-   # [ -f FILE ]
-   # [ -g FILE ]
-   # [ -h FILE ]
-   # [ -k FILE ]
-   # [ -p FILE ]
-   # [ -r FILE ]
-   # [ -s FILE ]
-   # [ -t FD ]  
-   # [ -u FILE ]
-   # [ -w FILE ]
-   # [ -x FILE ]
-   # [ -O FILE ]
-   # [ -G FILE ]
-   # [ -L FILE ]
-   # [ -N FILE ]
-   # [ -S FILE ]
-   # [ -D DIR  ]
+snippet "varl" "string|array length" b
+\$\{#${1:var[*]}\}$0
+endsnippet
+
+snippet "vars" "substitute pattern" b
+\$\{${1:variable}/${2:stringToReplace}/${3:pattern}/\}$0
+endsnippet
+
+
+snippet "varsf" "substitute first pattern" b
+\$\{${1:variable}//${2:stringToReplace}/${3:pattern}/\}$0
+endsnippet
+
+snippet "vart" "string|array trim w expand" b
+\$\{${1:variable[*]}##${2:stringToTrim*}\}$0
+endsnippet
+
+snippet "varc" "string|array fixedTrim" b
+\$\{${1:variable[*]}%${2:stringToTrim}\}$0
+endsnippet
+
+snippet "unset " "delete array member[n]" b
+unset ${1:array}${2:[}
+endsnippet
+
+snippet "xargs -I '{}'" "-n nrWords -d delim, pipe placeholder '{}'" b
+xargs -I '{}' $0
+endsnippet
+
+snippet printf "print" b
+printf '%s ${2:text}\n' "\$${1:var}"
+endsnippet
+
+snippet join "-t delim -1 field_file1 -2 field_file2 file1 2" b
+join -t'${1:delim}' ./${2:file1} ./${3:file2} -1 ${4:field of $3} ${5:field of $4} $0
+endsnippet
+
+snippet comm "-12 print only lines in file1&2 both 3"
+comm ${1:--output-delimiter=} ./${2:file1} ./${3:file2}
+endsnippet
+
+snippet paste "-d delim -s file ,'-' for each column in outFile" b
+paste -d'${1:,}' -s./${2:file} ${3:- - -}
+endsnippet
+# [ -a FILE ] # [ -b FILE ] # [ -c FILE ] # [ -d FILE ] # [ -e FILE ] # [ -f FILE ] # [ -g FILE ] # [ -h FILE ] # [ -k FILE ] # [ -p FILE ] # [ -r FILE ] # [ -s FILE ] # [ -t FD ]  # [ -u FILE ] # [ -w FILE ] # [ -x FILE ] # [ -O FILE ] # [ -G FILE ] # [ -L FILE ] # [ -N FILE ] # [ -S FILE ] # [ -D DIR  ]

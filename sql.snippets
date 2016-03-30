@@ -21,5 +21,15 @@ $0
 endsnippet
 
 snippet FOREIGN_KEY "fk" b
-FOREIGN KEY(${1:foreighKey}) REFERENCES ${2:pkTable}(${3:PRIMARYkEYid})
+FOREIGN KEY(${1:foreign Key}) REFERENCES ${2:pkTable}(${3:PRIMARYkEYid})
+endsnippet
+
+snippet LOAD_DATA_CSV "load data from csv" b
+CREATE TABLE ${2:$1}
+(FIELDS);
+
+LOAD DATA INFILE './${1:file} ' INTO TABLE $1
+FIELDS TERMINATED BY '`awk -vFS="" '{for(i=1;i<=NF;i++){ if($i~/[,;|	]/) { w[tolower($i)]++} } }END{for(i in w) print w[i],i}' $1`'
+IGNORE 1 LINES;
+$0
 endsnippet

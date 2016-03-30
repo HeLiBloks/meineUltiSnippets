@@ -1,0 +1,28 @@
+
+snippet CREATE_USER "createUser GrantAll" b
+CREATE USER IF NOT EXISTS '${1:`whoami`}'@'${2:localhost}';
+SET PASSWORD FOR '$1'@'$2' = PASSWORD('${3:cOmPl3xP4$sW()rD}');
+GRANT ALL PRIVILEGES ON *.* TO '$1'@'$2'
+WITH GRANT OPTION;
+$0
+endsnippet
+
+snippet CREATE_TABLE "createTable" b
+CREATE TABLE IF NOT EXISTS ${1:tableName}
+(
+${2:$1_id INTEGER(8) PRIMARY KEY},
+${2:text VARCHAR},
+${4:value INTEGER(8),TEXT,REAL,BLOB},
+)
+VALUES
+(
+${5:val}
+);
+$0
+endsnippet
+
+
+snippet FOREIGN_KEY "fk" b
+FOREIGN KEY(${1:foreighKey}) REFERENCES ${2:pkTable}(${3:PRIMARYkEYid})
+endsnippet
+
