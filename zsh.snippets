@@ -9,6 +9,10 @@ endsnippet
 
 # sed {{{ #
 
+snippet "sed -n" "print between 2 patterns"
+sed -n '/${1:<[[:alnum:]]}/,/${2:\/$1}/p' ./$0
+endsnippet
+
 snippet "sed 'd//'" "Delete string" b
 sed -r 'd/${1:[0-9]}/' $0
 endsnippet
@@ -48,6 +52,9 @@ column -t -s${1:	} -o${2:	}
 endsnippet
 
 snippet wc "-w wordCount -l lines -m chars -c bytes" b
-wc -w$0
+wc -w $0
 endsnippet
 
+snippet rename "rename" b
+rename -e 'y/${1:[!@%#? \´\`)(&\}\{<>]}/${2:_}/' **/**
+endsnippet

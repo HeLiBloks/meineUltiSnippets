@@ -3,6 +3,18 @@ priority -51
 
 extends sh
 
+snippet "sed -n" "print between 2 patterns"
+sed -n '/${1:<[[:alnum:]]}/,/${2:\/$1}/p' ./$0
+endsnippet
+
+snippet "sed 'd//'" "Delete string" b
+sed -r 'd/${1:[0-9]}/' $0
+endsnippet
+
+snippet "sed 's///g'" "Replace w. String" b
+sed -r 's/${1:[0-9a-zA-Z]}/${2:(\1)}/g' $0
+endsnippet
+
 snippet for "for item in ((ls))" b
 for i in $( ${1:ls} ); do
 	echo "item: $i"
@@ -18,6 +30,12 @@ if [[ ${1:$string} =~ ${2:[a-zA-Z0-9]+} ]]; then
 		${4:echo "no match in string"}
 fi
 $0
+endsnippet
+
+snippet whileRead "while read line" b
+while read -r line ;do
+	${2:echo "$line"}
+done < ${1:file}
 endsnippet
 
 snippet whileCount "while count" b
@@ -113,7 +131,7 @@ snippet "xargs -I '{}'" "-n nrWords -d delim, pipe placeholder '{}'" b
 xargs -I '{}' $0
 endsnippet
 
-snippet printf "print" b
+snippet printf "print %s string %b binary" b
 printf '%s ${2:text}\n' "\$${1:var}"
 endsnippet
 
@@ -128,4 +146,9 @@ endsnippet
 snippet paste "-d delim -s file ,'-' for each column in outFile" b
 paste -d'${1:,}' -s./${2:file} ${3:- - -}
 endsnippet
+
+snippet wc "-w wordCount -l lines -m chars -c bytes" b
+wc -w $0
+endsnippet
+
 # [ -a FILE ] # [ -b FILE ] # [ -c FILE ] # [ -d FILE ] # [ -e FILE ] # [ -f FILE ] # [ -g FILE ] # [ -h FILE ] # [ -k FILE ] # [ -p FILE ] # [ -r FILE ] # [ -s FILE ] # [ -t FD ]  # [ -u FILE ] # [ -w FILE ] # [ -x FILE ] # [ -O FILE ] # [ -G FILE ] # [ -L FILE ] # [ -N FILE ] # [ -S FILE ] # [ -D DIR  ]
