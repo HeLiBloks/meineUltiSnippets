@@ -9,8 +9,8 @@ endsnippet
 
 # sed {{{ #
 
-snippet "sed -n" "print between 2 patterns"
-sed -n '/${1:<[[:alnum:]]}/,/${2:\/$1}/p' ./$0
+snippet "sed -n /\w/,/\w/p" "print between 2 patterns"
+sed -rn '#${1:<[[:alnum:]]+>}#,#${2:</$1>}#p' ./$0
 endsnippet
 
 snippet "sed 'd//'" "Delete string" b
@@ -21,7 +21,15 @@ snippet "sed 's///g'" "Replace w. String" b
 sed -r 's/${1:[0-9a-zA-Z]}/${2:(\1)}/g' $0
 endsnippet
 
+snippet "sed 's/[^:]+://p' " "print after string" b
+sed -rn -e 's/^.*stuff: //p'
+endsnippet
+
 # }}} sed #
+
+snippet diff "diff -y sideBySide" b
+diff -y ${1:file1} ${2:file2}
+endsnippet
 
 snippet uniq "compare fields"
 uniq ${1:--count} ${2:--uniq} $0
@@ -56,5 +64,9 @@ wc -w $0
 endsnippet
 
 snippet rename "rename" b
-rename -e 'y/${1:[!@%#? \´\`)(&\}\{<>]}/${2:_}/' **/**
+rename -e 'y/${1:[,!@%#? \´\`)(&\}\{<>]}/${2:_}/' */**
+endsnippet
+
+snippet iconv "iconv to utf-8" b
+iconv -f utf-8 -t ${1:targetencodeing}utf-8 -c ${2:inputfile}
 endsnippet

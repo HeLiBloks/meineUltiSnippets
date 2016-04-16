@@ -3,8 +3,17 @@ priority -51
 
 extends sh
 
-snippet "sed -n" "print between 2 patterns"
-sed -n '/${1:<[[:alnum:]]}/,/${2:\/$1}/p' ./$0
+snippet IFS "change input file separator" b
+oIFS="$IFS"; IFS=$'${1:\n}'
+endsnippet
+
+snippet "sed" "a\append i\before1 c\replaceFirstline" b
+sed '/${1:[[:alnum:]]}/a \
+	${2:toappend}'
+endsnippet
+
+snippet "sed -n '#pa#,#pa2#p'" "print between 2 patterns"
+sed -nr '#${1:<([[:alpha:]]+>)}#,#${2:</\1}/p' ./$0
 endsnippet
 
 snippet "sed 'd//'" "Delete string" b
@@ -151,4 +160,7 @@ snippet wc "-w wordCount -l lines -m chars -c bytes" b
 wc -w $0
 endsnippet
 
+snippet dot "-T format -O baseName+format" b
+dot -O -T${1:pdf|jpg} ${2:inputfile.dot}
+endsnippet
 # [ -a FILE ] # [ -b FILE ] # [ -c FILE ] # [ -d FILE ] # [ -e FILE ] # [ -f FILE ] # [ -g FILE ] # [ -h FILE ] # [ -k FILE ] # [ -p FILE ] # [ -r FILE ] # [ -s FILE ] # [ -t FD ]  # [ -u FILE ] # [ -w FILE ] # [ -x FILE ] # [ -O FILE ] # [ -G FILE ] # [ -L FILE ] # [ -N FILE ] # [ -S FILE ] # [ -D DIR  ]
