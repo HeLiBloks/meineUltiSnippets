@@ -7,15 +7,15 @@ $0
 endsnippet
 
 snippet CREATE_TABLE "createTable" b
-CREATE TABLE IF NOT EXISTS ${1:tableName}
+CREATE ${1:TEMPORARY} TABLE IF NOT EXISTS ${2:tableName}
 (
-${2:$1_id INTEGER PRIMARY KEY},
-${2:text TEXT},
-${4:value INT,TEXT,REAL,BLOB},
+${3:$1_id INTEGER PRIMARY KEY},
+${4:text TEXT},
+${5:value INT|TEXT|REAL|BLOB},
 )
 VALUES
 (
-${5:val}
+${6:val}
 );
 $0
 endsnippet
@@ -24,12 +24,19 @@ snippet FOREIGN_KEY "fk" b
 FOREIGN KEY(${1:foreign Key}) REFERENCES ${2:pkTable}(${3:PRIMARYkEYid})
 endsnippet
 
-snippet LOAD_DATA_CSV "load data from csv" b
-CREATE TABLE ${2:$1}
-(FIELDS);
-
+snippet LOAD_DATA_CSV "load data from csv into table" b
 LOAD DATA INFILE './${1:file} ' INTO TABLE $1
-FIELDS TERMINATED BY '`awk -vFS="" '{for(i=1;i<=NF;i++){ if($i~/[,;|	]/) { w[tolower($i)]++} } }END{for(i in w) print w[i],i}' $1`'
+FIELDS TERMINATED BY '`awk -vFS="" '{for(i=1;i<=NF;i++){ if($i~/[,;|	]/) { w[tolower($i)]++} } }END{for(i in w) print w[i],i}' $(head -1 *.csv)`'
 IGNORE 1 LINES;
 $0
 endsnippet
+
+snippet nfk "Named FK constraint" b
+ALTER TABLE $1 ADD CONSTRAINT ${1/./\l$0/}_${2:rtableOrName}_fk
+    FOREIGN KEY(${3:${2/./\u$0/}Id}) REFERENCES ${5:${2/./\u$0/}}(${4:$3});
+endsnippet
+
+snippet npk "Named PK constraint" b
+ALTER TABLE $1 ADD CONSTRAINT ${1/./\l$0/}_pk PRIMARY KEY (${2:$1Id});
+endsnippet
+

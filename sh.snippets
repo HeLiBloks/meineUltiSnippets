@@ -1,4 +1,4 @@
-# vim:set ft=snippets foldmarker=snippet,endsnippet foldenable foldmethod=marker :
+# vim:set ft=snippets foldmarker=snippet,endsnippet foldlevel=1 foldenable foldmethod=marker:
 priority -51
 
 extends sh
@@ -78,6 +78,7 @@ status
 $0
 #status $1`!p snip.rv=complete(t[1], ['new','incomplete','invalid'])`
 endsnippet
+
 # endsnippet
 
 snippet ifBrackets "if expressionList" b
@@ -109,6 +110,10 @@ endsnippet
 
 snippet "find exec" "find and exec command on files" b
 find . -maxdepth 0 -empty -exec echo {} is empty. \;
+endsnippet
+
+snippet "declare -A" "Associative array[key]=value" b
+${1:arrayname}[${2:key}]=${3:value}
 endsnippet
 
 snippet "varl" "string|array length" b
@@ -161,6 +166,7 @@ wc -w $0
 endsnippet
 
 snippet dot "-T format -O baseName+format" b
-dot -O -T${1:pdf|jpg} ${2:inputfile.dot}
+dot -T${1:pdf|jpg} -O${2:inputfile.dot}
 endsnippet
+
 # [ -a FILE ] # [ -b FILE ] # [ -c FILE ] # [ -d FILE ] # [ -e FILE ] # [ -f FILE ] # [ -g FILE ] # [ -h FILE ] # [ -k FILE ] # [ -p FILE ] # [ -r FILE ] # [ -s FILE ] # [ -t FD ]  # [ -u FILE ] # [ -w FILE ] # [ -x FILE ] # [ -O FILE ] # [ -G FILE ] # [ -L FILE ] # [ -N FILE ] # [ -S FILE ] # [ -D DIR  ]

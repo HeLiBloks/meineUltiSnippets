@@ -1,5 +1,5 @@
 # modeline & info {{{ #
-# vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker lazyredraw spell:
+# vim: set sw=4 ts=4 sts=4 et tw=78  foldmarker={{{,}}} foldlevel=1 foldmethod=marker lazyredraw spell:
 # }}} modeline & info #
 
 snippet alias "CreateAlias" b
@@ -9,8 +9,8 @@ endsnippet
 
 # sed {{{ #
 
-snippet "sed -n /\w/,/\w/p" "print between 2 patterns"
-sed -rn '#${1:<[[:alnum:]]+>}#,#${2:</$1>}#p' ./$0
+snippet "sed -rn /\w/,/\w/p" "print between 2 patterns" b
+sed -rne'/${1:<[[:alnum:]]+>}/,/${2:</$1>}/p' ./$0
 endsnippet
 
 snippet "sed 'd//'" "Delete string" b
@@ -48,7 +48,7 @@ sort ${1:-n} $0
 endsnippet
 
 snippet awk "/pattern/ action"
-awk -F"${1:delimiter}" '/${2:^[A-Za-z0-9]}/ {print  ${3:\$0}}' ./$0
+awk -F"${1:regexdelimiter}" '/${2:^[A-Za-z0-9]}/ {print  ${3:\$0}}' ./$0
 endsnippet
 
 snippet cut "cut -c1-3 char -d delimiter -f field"
