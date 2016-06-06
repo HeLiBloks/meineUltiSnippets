@@ -1,3 +1,4 @@
+#vim:set noet sts=4 sw=4 ts=4 foldenable foldlevel=0 foldmethod=syntax:
 snippet CREATE_USER "createUser GrantAll" b
 CREATE USER IF NOT EXISTS '${1:`whoami`}'@'${2:localhost}';
 SET PASSWORD FOR '$1'@'$2' = PASSWORD('${3:cOmPl3xP4$sW()rD}');
@@ -25,7 +26,7 @@ FOREIGN KEY(${1:foreign Key}) REFERENCES ${2:pkTable}(${3:PRIMARYkEYid})
 endsnippet
 
 snippet LOAD_DATA_CSV "load data from csv into table" b
-LOAD DATA INFILE './${1:file} ' INTO TABLE $1
+LOAD DATA LOCAL INFILE './${1:file} ' INTO TABLE $1
 FIELDS TERMINATED BY '`awk -vFS="" '{for(i=1;i<=NF;i++){ if($i~/[,;|	]/) { w[tolower($i)]++} } }END{for(i in w) print w[i],i}' $(head -1 *.csv)`'
 IGNORE 1 LINES;
 $0
