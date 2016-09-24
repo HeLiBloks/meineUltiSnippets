@@ -3,3 +3,14 @@
 snippet "$(subst)" "replace txt" b
 \$(subst ${1:from},${2:to},${3:string})
 endsnippet
+
+snippet tags "ctags" b
+tags:
+	find . /usr/share/nvim/ -type f -regex "\(_\w\+\)\|\(.*\.sh)" -print  |\
+		ctags -L - --fields=\* --language-force=sh --sort=1  -f tags
+endsnippet
+
+snippet clean "clean" b
+clean:
+	rm -f ./tags ${1:./files}./cscope.out ID ./*.log
+endsnippet
