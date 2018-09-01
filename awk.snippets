@@ -1,0 +1,20 @@
+snippet fu "function" b
+
+
+function ${1:function_name}(${2:param,}    ${3:local_variable}){
+    ${4:def}
+}
+endsnippet
+
+snippet BEGIN "executes once first" b
+BEGIN {FS="${1:inputfieldseparator}"; RS="${2:recordsep}"};
+endsnippet
+
+snippet END "executes at end" b
+END {${1:print };
+endsnippet
+
+
+snippet /(return\s|(\s*\w+\s*=)\s*)/ "conditional expression ? true : false" r
+`!p snip.rv=match.group(1)`${1:expression} ? ${2:true} : ${3:false}
+endsnippet

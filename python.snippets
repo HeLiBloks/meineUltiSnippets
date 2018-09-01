@@ -1,0 +1,18 @@
+snippet trace "halt pdb debuger here" b
+# Debug
+# l(ist) - Displays 11 lines around the current line or continue the previous listing.
+# s(tep) - Execute the current line, stop at the first possible occasion.
+# n(ext) - Continue execution until the next line in the current function is reached or it returns.
+# b(reak) - Set a breakpoint (depending on the argument provided).
+# r(eturn) - Continue execution until the current function returns.
+import pdb; pdb.set_trace()$1
+$0
+endsnippet
+
+snippet map "map(lambda" b
+map(lambda x: ${1:function}(${2:arg} ), ${3:list})
+endsnippet
+
+snippet filter "filter(lambda" b
+filter(lambda x: ${1:expression}, ${2:list})
+endsnippet
