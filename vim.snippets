@@ -1,23 +1,16 @@
 # vim: set et ts=4 sw=4 tw=0 foldenable foldmethod=syntax foldclose=all:
-snippet Bundle "Plugin from git" b
-Bundle '${1:`v! printf("%s", @*)` }'
+priority 1
+
+snippet Plug "Plugin from git" b
+Plug '${1:`xclip -o 2>/dev/null | grep -Po  '((https?)|(git))[:][/].+\/\K\w+\/\w+$'`}'
 $0
 endsnippet
 
 snippet funcDict! "function dictionary" b
-function! ${1:functionName}(${2:param}) ${3:dict}
+funcd ${1:functionName}(${2:param}) ${3:dict|abort}
     let a:${4:$2}
     return '${5:$2}'
 endfunction $1
-$0
-endsnippet
-
-snippet func! "function definition" b
-function! ${1:functionName}(${2:...})
-    let l:linestart = a:0>0 ? a:1 : 1           "init to 1 if empty
-    let l:lineend   = a:0>1 ? a:2 : line('$')   "init to lastLineNr if  empty
-    return '${4:$2}'
-endfunc $1
 $0
 endsnippet
 
@@ -29,7 +22,7 @@ func! ${1:`!v expand('%:t:r')`}#prototype()
 endfunc
 endsnippet
 
-snippet dict "dictionary" b
+snippet dict "dict declaration" b
 let ${1:g:dictName} = {
     \ "${2:key}": ""${3:string|funcref}",
     \ "key": "value", }
@@ -72,4 +65,22 @@ augroup end
 " `!v get(split(&foldmarker,','),1)`"
 endsnippet
 
+snippet redir "redirection [=>|=>>|>|=>] [{var}|{file}|@{a-Z}]" b
+redir ${1:=>|=>>|>|=>} ${2:var|file|@a-Z}
+    silent ${3:command}
+end
+endsnippet
+
+# snippet get "get(g:,{var},{default})" "re.match('\s+[bwglsav]:[a-zA-Z0-9#_]*', snip.buffer[snip.line])" be
+snippet /(let\s*[bwglsav]:[a-zA-Z0-9#_]*\s*=\s*)get?/ "get(g:,{var},{default})" r
+`!p snip.rv=match.group(1)`get(${1:g:},'${2:`!v matchstr(getline('.'),'\<[bwglsav]:\h[a-zA-Z0-9#_]*\>')`}', '${3:\{\}}')$0
+endsnippet
+
+snippet /(([=[]\s*)(.+,)*){/ "dict instance" r
+`!p snip.rv=match.group(1)`{ '${2:key}': '${3:string|funcref}' }
+endsnippet
+
+snippet /(return\s|(let\s*[bwglsav]?:?[a-zA-Z0-9#_]*\s*=)\s*)/ "conditional expression ? true : false" r
+`!p snip.rv=match.group(1)`${1:expression} ? ${2:true} : ${3:false}
+endsnippet
 
