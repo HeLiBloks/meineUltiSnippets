@@ -41,3 +41,7 @@ snippet npk "Named PK constraint" b
 ALTER TABLE $1 ADD CONSTRAINT ${1/./\l$0/}_pk PRIMARY KEY (${2:$1Id});
 endsnippet
 
+snippet sel "SELECT statement" b
+SELECT ${2:*} FROM ${1:table}
+${3:WHERE}
+endsnippet

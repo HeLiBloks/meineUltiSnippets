@@ -7,10 +7,14 @@ endsnippet
 snippet tags "ctags" b
 tags:
 	find . /usr/share/nvim/ -type f -regex "\(_\w\+\)\|\(.*\.sh)" -print  |\
-		ctags -L - --fields=\* --language-force=sh --sort=1  -f tags
+		ctags -L - --fields=\* --extras=\* --language-force=sh --sort=1  -f tags
 endsnippet
 
 snippet clean "clean" b
 clean:
-	rm -f ./tags ${1:./files}./cscope.out ID ./*.log
+	rm -f ./tags ${1:./files} ./cscope.out ID ./*.log
+endsnippet
+
+snippet "SHE" "Set Shell" b
+SHELL=/bin/zsh
 endsnippet

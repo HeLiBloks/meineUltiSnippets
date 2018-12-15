@@ -1,4 +1,4 @@
-# vim:set ft=snippets foldmarker=snippet,endsnippet foldlevel=1 foldenable foldmethod=marker:
+# vim:set ft=snippets foldclose=all foldmarker=snippet,endsnippet foldlevel=1 foldenable foldmethod=marker:
 priority -51
 
 extends sh
@@ -100,6 +100,11 @@ rename ${1:-e} ${2:'y}/${3:[A-Z]}/${4:[a-z]}/' ${5:*.*}
 $0
 endsnippet
 
+snippet rename "rename fileendings" b
+rename 's/(.[A-Z]+)/lc(\$1)/ge' *.*[A-Z]*
+$0
+endsnippet
+
 snippet column "-tx table -s delim" b
 column -tx -s'${1:delim}'$0
 endsnippet
@@ -123,7 +128,6 @@ endsnippet
 snippet "vars" "substitute pattern" b
 \$\{${1:variable}/${2:stringToReplace}/${3:pattern}/\}$0
 endsnippet
-
 
 snippet "varsf" "substitute first pattern" b
 \$\{${1:variable}//${2:stringToReplace}/${3:pattern}/\}$0
@@ -165,10 +169,6 @@ snippet wc "-w wordCount -l lines -m chars -c bytes" b
 wc -w $0
 endsnippet
 
-snippet dot "-T format -O baseName+format" b
-dot -T${1:pdf|jpg} -O${2:inputfile.dot}
-endsnippet
-
 snippet getopts "parse args passed to script" b
 __ScriptVersion=${1:0.0.1}
 
@@ -207,6 +207,14 @@ do
   esac    # --- end of case ---
 done
 shift $((OPTIND-1))
+endsnippet
+
+snippet pes "perl substitute" b
+perl -pi -e 's/${1:old_string}/${2:new_string}/g'
+endsnippet
+
+snippet safe "set shell safe options"
+set -euo pipefail # safe shell opts
 endsnippet
 
 # [ -a FILE ] # [ -b FILE ] # [ -c FILE ] # [ -d FILE ] # [ -e FILE ] # [ -f FILE ] # [ -g FILE ] # [ -h FILE ] # [ -k FILE ] # [ -p FILE ] # [ -r FILE ] # [ -s FILE ] # [ -t FD ]  # [ -u FILE ] # [ -w FILE ] # [ -x FILE ] # [ -O FILE ] # [ -G FILE ] # [ -L FILE ] # [ -N FILE ] # [ -S FILE ] # [ -D DIR  ]

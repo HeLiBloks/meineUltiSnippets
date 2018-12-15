@@ -1,13 +1,8 @@
-# modeline & info {{{ #
-# vim: set sw=4 ts=4 sts=4 et tw=78  foldmarker={{{,}}} foldlevel=1 foldmethod=marker lazyredraw spell:
-# }}} modeline & info #
 
 snippet alias "CreateAlias" b
 alias ${1:alias}="${2:command}"
 $0
 endsnippet
-
-# sed {{{ #
 
 snippet "sed -rn /\w/,/\w/p" "print between 2 patterns" b
 sed -rne'/${1:<[[:alnum:]]+>}/,/${2:</$1>}/p' ./$0
@@ -24,8 +19,6 @@ endsnippet
 snippet "sed 's/[^:]+://p' " "print after string" b
 sed -rn -e 's/^.*stuff: //p'
 endsnippet
-
-# }}} sed #
 
 snippet diff "diff -y sideBySide" b
 diff -y ${1:file1} ${2:file2}
@@ -70,3 +63,16 @@ endsnippet
 snippet iconv "iconv to utf-8" b
 iconv -f utf-8 -t ${1:targetencodeing}utf-8 -c ${2:inputfile}
 endsnippet
+
+snippet zparse  "zparseopts optargs"
+zparseopts -${1:D} -- f:=file -file:=file v=verbose
+endsnippet
+
+snippet 2& "redirect stder & stdout to /dev/[null|stdout]"
+2&>1 /dev/$0
+endsnippet
+
+snippet "([^|]+\|\s*)wh(ile\s+read)?" "whileRead 1liner" r
+`!p snip.rv=match.group(1)`while read -r line ; do ; ${1:echo "\$line"} ; done$0
+endsnippet
+# vim: set sw=4 ts=4 sts=4 et tw=78 ft=snippets foldmarker={{{,}}} foldlevel=1 foldclose=all foldmethod=syntax lazyredraw spell:
