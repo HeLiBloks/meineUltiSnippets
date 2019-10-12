@@ -1,0 +1,17 @@
+snippet py "inline pythoncode" b
+`!p ${1:snip.rv=match.group(1)}`$0
+endsnippet
+
+snippet vi "inline vimscript" b
+`!v ${1: expand('%:t:r')}`$0
+endsnippet
+
+snippet sh "inline shellcode" b
+` ${1:grep -oP 'g[:]\w+' *.vim | head -1 }`$0
+endsnippet
+
+snippet pl "inline perlcode" b
+`#!/usr/bin/perl
+@a = localtime(); print $a[3] . '.' . $a[4] . '.' . ($a[5]+1900);`
+endsnippet
+
